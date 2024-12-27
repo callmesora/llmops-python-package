@@ -1,96 +1,88 @@
-# https://python-poetry.org/docs/pyproject/
+# https://docs.astral.sh/uv/guides/projects/#pyprojecttoml
 
 # PROJECT
 
-[tool.poetry]
+[project]
 name = "llmops-project"
 version = "0.2.0"
 description = "LLMOps Package Production Ready template using open source technologies."
 repository = "https://github.com/callmesora/llmops-project"
 documentation = "https://callmesora.github.io/llmops-project/"
-authors = ["callmesora"]
+author = ["callmesora"]
 readme = "README.md"
 license = "MIT"
 packages = [{ include = "llmops_project", from = "src" }]
-
-# SCRIPTS
-
-[tool.poetry.scripts]
-llmops-project = "llmops_project.scripts:main"
+requires-python = ">=3.10,<3.13"
 
 # DEPENDENCIES
 
-[tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-mlflow = {extras = ["genai"], version = "^2.17.2"}
-setuptools = "^71.1.0"
-langchain = "^0.3.5"
-# langchain-ollama = "^0.2.0"
-llama-index = "^0.12.0"
-# langgraph = "0.2.27"
-#llama-index-utils-workflow = "^0.2.2"
-#llama-index-llms-ollama = "^0.3.4"
-# gensim = "^4.0.0"
-nltk = "^3.9.1"
-langchain-community = "^0.3.4"
-transformers = "^4.46.1"
-#streamlit = "^1.39.0"
-pypdf2 = "^3.0.1"
-defusedxml = "^0.7.1"
-#faiss-cpu = "^1.9.0"
-spacy = "3.7.0"
-textstat = "^0.7.4"
-torch = "^2.5.1"
-evaluate = "^0.4.3"
-loguru = "^0.7.2"
-omegaconf = "^2.3.0"
-pandera = "^0.21.0"
-#sagemaker-mlflow = "0.1.0"
-langchain-aws = "^0.2.7"
-langchain-openai = "^0.2.9"
-plotly = "5.3.1"
-kaleido = "0.2.1"
-seaborn = "^0.13.2"
-sagemaker = "^2.235.1"
-litserve = "^0.2.4"
-#nemoguardrails = "^0.11.0"
-guardrails-ai = "^0.6.0"
-tenacity = ">=8.2.0,<8.4.0"
-presidio-analyzer = "^2.2.355"
-presidio-anonymizer = "^2.2.355"
-qdrant-client = "^1.12.1"
-unstructured = {extras = ["pdf"], version = "^0.16.8"}
-libmagic = "^1.0"
-python-magic = "^0.4.27"
-langchain-qdrant = "^0.2.0"
-pytest = "^8.3.4"
-pytest-ordering = "^0.6"
-llama-index-llms-bedrock = "^0.3.1"
+dependencies = [
+    "langchain-community>=0.3.13",
+    "langchain>=0.3.13",
+    "llama-index>=0.12.8",
+    "mlflow[genai]>=2.19.0",
+    "nltk>=3.9.1",
+    "setuptools>=75.6.0",
+    "transformers>=4.47.1",
+    "pypdf2>=3.0.1",
+    "defusedxml>=0.7.1",
+    "spacy==3.7.0",
+    "textstat>=0.7.4",
+    "torch>=2.5.1",
+    "evaluate>=0.4.3",
+    "loguru>=0.7.3",
+    "omegaconf>=2.3.0",
+    "pandera>=0.22.1",
+    "langchain-aws>=0.2.10",
+    "plotly==5.3.1",
+    "kaleido==0.2.1",
+    "seaborn>=0.13.2",
+    "sagemaker>=2.235.2",
+    "litserve>=0.2.5",
+    "guardrails-ai>=0.1.8",
+    "tenacity>=8.2.0,<8.4.0",
+    "presidio-analyzer>=2.2.355",
+    "presidio-anonymizer>=2.2.355",
+    "qdrant-client>=1.12.1",
+    "unstructured[pdf]>=0.16.11",
+    "libmagic>=1.0",
+    "python-magic>=0.4.27",
+    "langchain-qdrant>=0.2.0",
+    "pytest>=8.3.4",
+    "pytest-ordering>=0.6",
+    "llama-index-llms-bedrock>=0.3.3",
+    
+]
 
+[dependency-groups]
+checks = [
+    "bandit>=1.8.0",
+    "coverage>=7.6.10",
+    "mypy>=1.14.0",
+    "pytest>=8.3.4",
+    "pytest-cov>=5.0.0",
+    "pytest-xdist>=3.6.1",
+    "ruff>=0.8.4",
+]
+commits = [
+    "commitizen>=4.1.0",
+    "pre-commit>=4.0.1",
+]
+dev = [
+    "invoke>=2.2.0",
+]
+docs = [
+    "pdoc>=15.0.1",
+]
+notebooks = [
+    "ipykernel>=6.29.5",
+    "nbformat>=5.10.4",
+]
 
+# SCRIPTS
 
-[tool.poetry.group.checks.dependencies]
-bandit = "^1.7.9"
-coverage = "^7.5.4"
-mypy = "^1.10.1"
-pytest = "^8.2.2"
-pytest-cov = "^5.0.0"
-pytest-xdist = "^3.6.1"
-ruff = "^0.5.0"
-
-[tool.poetry.group.commits.dependencies]
-commitizen = "^3.27.0"
-pre-commit = "^3.7.1"
-
-[tool.poetry.group.dev.dependencies]
-invoke = "^2.2.0"
-
-[tool.poetry.group.docs.dependencies]
-pdoc = "^14.5.1"
-
-[tool.poetry.group.notebooks.dependencies]
-ipykernel = "^6.29.4"
-nbformat = "^5.10.4"
+[project.scripts]
+llmops-project = "llmops_project.scripts:main"
 
 # CONFIGURATIONS
 
@@ -101,7 +93,7 @@ targets = ["src"]
 name = "cz_conventional_commits"
 tag_format = "v$version"
 version_scheme = "pep440"
-version_provider = "poetry"
+version_provider = "uv"
 update_changelog_on_bump = true
 
 [tool.coverage.run]
@@ -145,8 +137,6 @@ convention = "google"
 [tool.ruff.lint.per-file-ignores]
 "tests/*.py" = ["D100", "D103"]
 
-# SYSTEMS
-
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"

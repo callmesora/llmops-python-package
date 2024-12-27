@@ -7,8 +7,9 @@ from typing import Optional
 import mlflow
 import pandas as pd
 import plotly.graph_objects as go
-from llmops_project.pipelines import base
 from plotly.subplots import make_subplots
+
+from llmops_project.pipelines import base
 
 
 def filter_generations(df):

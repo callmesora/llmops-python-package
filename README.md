@@ -23,58 +23,30 @@ This package is a variation / fork of these resources but specicially tailored f
 
 # Table of Contents
 
-- [LLMOps Python Package](#mlops-python-package)
+- [LLMOps Python Pacakge](#llmops-python-pacakge)
 - [Table of Contents](#table-of-contents)
+- [Architecture](#architecture)
+  - [RAG Evaluation](#rag-evaluation)
+  - [Model Registry](#model-registry)
+  - [Guardrails](#guardrails)
+  - [Endpoint Deployment](#endpoint-deployment)
+  - [Model Monitoring](#model-monitoring)
+  - [LLMOps Design Pattern](#llmops-design-pattern)
 - [Install](#install)
   - [Prerequisites](#prerequisites)
+  - [Credentials for LLM](#credentials-for-llm)
   - [Installation](#installation)
   - [Next Steps](#next-steps)
 - [Usage](#usage)
   - [Configuration](#configuration)
   - [Execution](#execution)
+  - [Pipelines](#pipelines)
+    - [Generate Rag Dataset](#generate-rag-dataset)
+    - [Feature Engineering](#feature-engineering)
+    - [Deployment](#deployment)
+    - [Monitoring](#monitoring)
   - [Automation](#automation)
-  - [Workflows](#workflows)
 - [Tools](#tools)
-  - [Automation](#automation-1)
-    - [Commits: Commitizen](#commits-commitizen)
-    - [Git Hooks: Pre-Commit](#git-hooks-pre-commit)
-    - [Tasks: PyInvoke](#tasks-pyinvoke)
-  - [CI/CD](#cicd)
-    - [Runner: GitHub Actions](#runner-github-actions)
-  - [CLI](#cli)
-    - [Parser: Argparse](#parser-argparse)
-    - [Logging: Loguru](#logging-loguru)
-  - [Code](#code)
-    - [Coverage: Coverage](#coverage-coverage)
-    - [Editor: VS Code](#editor-vs-code)
-    - [Formatting: Ruff](#formatting-ruff)
-    - [Quality: Ruff](#quality-ruff)
-    - [Security: Bandit](#security-bandit)
-    - [Testing: Pytest](#testing-pytest)
-    - [Typing: Mypy](#typing-mypy)
-    - [Versioning: Git](#versioning-git)
-  - [Configs](#configs)
-    - [Format: YAML](#format-yaml)
-    - [Parser: OmegaConf](#parser-omegaconf)
-    - [Reader: Cloudpathlib](#reader-cloudpathlib)
-    - [Validator: Pydantic](#validator-pydantic)
-  - [Model](#model)
-    - [Format: Mlflow Model](#format-mlflow-model)
-    - [Registry: Mlflow Registry](#registry-mlflow-registry)
-    - [Tracking: Mlflow Tracking](#tracking-mlflow-tracking)
-  - [Package](#package)
-    - [Evolution: Changelog](#evolution-changelog)
-    - [Format: Wheel](#format-wheel)
-    - [Manager: Poetry](#manager-poetry)
-    - [Runtime: Docker](#runtime-docker)
-  - [Programming](#programming)
-    - [Language: Python](#language-python)
-    - [Version: Pyenv](#version-pyenv)
-  - [Observability](#observability)
-    - [Monitoring : Mlflow Evaluate](#monitoring--mlflow-evaluate)
-    - [Infrastructure: Mlflow System Metrics](#infrastructure-mlflow-system-metrics)
-  - [Model Serving](#endpoint)
-    - [Serving Endpoint: Litserve](#serving-endpoint)
 - [Tips](#tips)
   - [Design Patterns](#design-patterns)
     - [Directed-Acyclic Graph](#directed-acyclic-graph)
@@ -96,6 +68,7 @@ This package is a variation / fork of these resources but specicially tailored f
   - [VS Code](#vs-code)
     - [Code Workspace](#code-workspace)
     - [GitHub Copilot](#github-copilot)
+    - [VSCode VIM](#vscode-vim)
 - [Resources](#resources)
   - [Python](#python)
   - [AI/ML/MLOps](#aimlmlops)
@@ -154,10 +127,9 @@ This section details the requirements, actions, and next steps to kickstart your
 
 ## Prerequisites
 
-- [Python>=3.10](https://www.python.org/downloads/): to benefit from [the latest features and performance improvements](https://docs.python.org/3/whatsnew/3.12.html)
-- [Poetry>=1.8.2](https://python-poetry.org/): to initialize the project [virtual environment](https://docs.python.org/3/library/venv.html) and its dependencies
+- [UV>=0.5.11](https://docs.astral.sh/uv/): to initialize the project [virtual environment](https://docs.python.org/3/library/venv.html) and its dependencies
 
-Use the package manager [Poetry](https://python-poetry.org/):
+Use the package manager [UV](https://docs.astral.sh/uv/):
 
 ## Credentials for LLM
 
@@ -186,10 +158,10 @@ $ git clone -
 # with https
 $ git clone -
 ```
-2. [Run the project installation with poetry](https://python-poetry.org/docs/)
+2. [Run the project installation with UV](https://docs.astral.sh/uv/)
 ```bash
 $ cd llmops-python-package/
-$ poetry install
+$ uv sync --all-groups
 ```
 3. Adapt the code base to your desire
 
@@ -225,17 +197,17 @@ job:
 This config file instructs the program to start a `DeploymentJob` with respective parameters
 You can find all the parameters of your program in the `src/[package]/pipelines/*.py` files.
 
-You can also print the full schema supported by this package using `poetry run llmops --schema`.
+You can also print the full schema supported by this package using `uv run llmops --schema`.
 
 ## Execution
 
-The project code can be executed with poetry during your development, this is the order recommended:
+The project code can be executed with UV during your development, this is the order recommended:
 
 ```bash
-$ poetry run llmops-project confs/generate_rag_dataset.yaml # Run once to generate rag dataset
-$ poetry run llmops-project confs/feature_eng.yaml # Creates Vector DB and Injests documents
-$ poetry run llmops-project confs/deployment.yaml # Deploys model on model registry
-$ poetry run llmops-project confs/monitoring.yaml # Monitors Model Inferences "every week"
+$ uv run llmops-project confs/generate_rag_dataset.yaml # Run once to generate rag dataset
+$ uv run llmops-project confs/feature_eng.yaml # Creates Vector DB and Injests documents
+$ uv run llmops-project confs/deployment.yaml # Deploys model on model registry
+$ uv run llmops-project confs/monitoring.yaml # Monitors Model Inferences "every week"
 ```
 
 To deploy the serving endpoint you can use the following automation:
@@ -283,8 +255,8 @@ These metrics are also saved with a display in case you want to load it in a das
 In production, you can build, ship, and run the project as a Python package:
 
 ```bash
-poetry build
-poetry publish # optional
+uv build
+uv publish # optional
 python -m pip install [package]
 [package] confs/deployment.yaml
 ```
@@ -326,7 +298,7 @@ $ inv --list
 - **checks.code** - Check the codes with ruff.
 - **checks.coverage** - Check the coverage with coverage.
 - **checks.format** - Check the formats with ruff.
-- **checks.poetry** - Check poetry config files.
+- **checks.uv** - Check uv config files.
 - **checks.security** - Check the security with bandit.
 - **checks.test** - Check the tests with pytest.
 - **checks.type** - Check the types with mypy.
@@ -340,7 +312,7 @@ $ inv --list
 - **cleans.mlruns** - Clean the mlruns folder.
 - **cleans.mypy** - Clean the mypy tool.
 - **cleans.outputs** - Clean the outputs folder.
-- **cleans.poetry** - Clean poetry lock file.
+- **cleans.uv** - Clean uv lock file.
 - **cleans.pytest** - Clean the pytest tool.
 - **cleans.projects** - Run all projects tasks.
 - **cleans.python** - Clean python caches and bytecodes.
@@ -365,7 +337,7 @@ $ inv --list
 - **formats.imports** - Format python imports with ruff.
 - **formats.sources** - Format python sources with ruff.
 - **installs.all (installs)** - Run all install tasks.
-- **installs.poetry** - Install poetry packages.
+- **installs.uv** - Install uv packages.
 - **installs.pre-commit** - Install pre-commit hooks on git.
 - **mlflow.all (mlflow)** - Run all mlflow tasks.
 - **mlflow.doctor** - Run mlflow doctor to diagnose issues.
@@ -467,10 +439,10 @@ Using Python package for your AI/ML project has the following benefits:
 - Install Python package as a library (e.g., like pandas)
 - Expose script entry points to run a CLI or a GUI
 
-To build a Python package with Poetry, you simply have to type in a terminal:
+To build a Python package with UV, you simply have to type in a terminal:
 ```bash
-# for all poetry project
-poetry build
+# for all uv project
+uv build
 # for this project only
 inv packages
 ```
@@ -524,7 +496,7 @@ Semantic Versioning (SemVer) provides a simple schema to communicate code change
 - *Minor* (Y): minor release with new features (i.e., provide new capabilities)
 - *Patch* (Z): patch release to fix bugs (i.e., correct wrong behavior)
 
-Poetry and this package leverage Semantic Versioning to let developers control the speed of adoption for new releases.
+UV and this package leverage Semantic Versioning to let developers control the speed of adoption for new releases.
 
 ## [Testing Tricks](https://en.wikipedia.org/wiki/Software_testing)
 
