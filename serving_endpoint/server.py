@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 import litserve as ls
 import mlflow
 import mlflow.langchain
-from pydantic import BaseModel, constr
+from pydantic import BaseModel
 
 # ==== DEFINING INPUT / OUTPUT SCHEMAS WITH EXAMPLES ====
 

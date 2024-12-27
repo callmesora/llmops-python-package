@@ -98,12 +98,12 @@ def get_topics_present(text: str, topics: List[str]) -> List[str]:
                 ----
                 "{text}"
 
-                Topics: 
+                Topics:
                 ------
                 {topics}
 
                 Result:
-                ------ 
+                ------
             """,
         },
     ]
@@ -382,7 +382,7 @@ class RestrictToTopic(Validator):
                                 ----
                                 "{text}"
 
-                                Topics: 
+                                Topics:
                                 ------
                                 {topics}
 

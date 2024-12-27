@@ -1,4 +1,4 @@
-include .env 
+include .env
 
 .EXPORT_ALL_VARIABLES:
 APP_NAME=litserve-endpoint
@@ -10,7 +10,7 @@ TF_VAR_image=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NA
 TF_VAR_region=${AWS_REGION}
 
 
-setup-ecr: 
+setup-ecr:
 	cd infra/setup && terraform init && terraform apply -auto-approve
 
 deploy-container:

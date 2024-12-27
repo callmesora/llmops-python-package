@@ -8,7 +8,7 @@ guardrail_config:
       - leadership
       - management
       - productivity
-      
+
     invalid:
       - software programming
       - religion
@@ -29,7 +29,7 @@ output_example:
   sources:
     - "example_source_1.pdf"
     - "example_source_2.pdf"
-  
+
 llm_config:
   llm_model: anthropic.claude-3-haiku-20240307-v1:0
   llm_parameters:

@@ -136,7 +136,7 @@ Use the package manager [UV](https://docs.astral.sh/uv/):
 To access Bedrock, OpenAI, or any other LLM provider, you need to set up your  credentials. These credentials will allow the package to authenticate and interact with the respective services.
 In this code template we used Bedrock but feel free to change it to your needs.
 
-Example for AWS 
+Example for AWS
 
  **Environment Variables**:
     ```bash
@@ -146,7 +146,7 @@ Example for AWS
     ```
 
 
-  - You can easily replace `ChatBedrock` with `ChatOllama` or any other provider. 
+  - You can easily replace `ChatBedrock` with `ChatOllama` or any other provider.
 
 
 ## Installation
@@ -224,13 +224,13 @@ This project is organized under a manager pattern, each manager is responsible f
 ### Generate Rag Dataset
 This pipeline generates a rag QA dataset under `/data/datasets/``
 
-### Feature Engineering 
+### Feature Engineering
 This pipeline creates a Vector Database instance collection and ingests documents onto it in the form of vectors.
 ![Vector Database](static/vector_db.png)
 
-### Deployment 
+### Deployment
 This pipeline:
--  registers a model using Mlflow 
+-  registers a model using Mlflow
 -  promote the model to `champion`alias
 -  validates model input /output and singatures
 -  sets tag "passed_tests" on mlflow registry to True/False depending if model passed tests
@@ -568,8 +568,3 @@ This section provides resources for building packages for Python and AI/ML/MLOps
 
 - https://github.com/josephmisiti/awesome-machine-learning
 - https://github.com/visenger/awesome-mlops
-
-
-
-
-
