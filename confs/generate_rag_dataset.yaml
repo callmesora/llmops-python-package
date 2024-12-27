@@ -4,4 +4,3 @@ job:
   qa_dataset_path_csv: "data/datasets/rag_dataset.csv" # will save a QA dataset in csv and json
   qa_dataset_path_json: "data/datasets/rag_dataset.json" # will save a QA dataset in csv and json
   llm_model: "anthropic.claude-3-haiku-20240307-v1:0" # model_id to generate the QA dataset
-
