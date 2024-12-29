@@ -11,7 +11,7 @@ from invoke.tasks import task
 @task
 def serve(ctx: Context) -> None:
     """Run the serving endpoint."""
-    ctx.run("poetry run python serving_endpoint/server.py", pty=True)
+    ctx.run("uv run python serving_endpoint/server.py", pty=True)
 
 
 @task(pre=[serve], default=True)

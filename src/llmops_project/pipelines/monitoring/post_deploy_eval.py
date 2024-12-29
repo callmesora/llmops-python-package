@@ -7,28 +7,38 @@ from typing import Optional
 import mlflow
 import pandas as pd
 import plotly.graph_objects as go
-from llmops_project.pipelines import base
 from plotly.subplots import make_subplots
+
+from llmops_project.pipelines import base
 
 
 def filter_generations(df):
     return df[
         df["response"].apply(
-            lambda x: "generations" not in json.loads(x) if pd.notnull(x) else True
+            lambda x: ("generations" not in json.loads(x) if pd.notnull(x) else True)
+            if isinstance(x, str)
+            else True
         )
     ]
 
 
 def extract_answer(data):
     if data:
-        data_dict = json.loads(data)
-        if "result" in data_dict:
-            return data_dict["result"]
+        try:
+            data_dict = json.loads(data)
+            if "result" in data_dict:
+                return data_dict["result"]
+        except (json.JSONDecodeError, TypeError):
+            return None
     return None
 
 
 def extract_last_message_content(request):
-    return json.loads(request)["messages"][-1]["content"]
+    try:
+        data = json.loads(request)
+        return data["messages"][-1]["content"]
+    except (json.JSONDecodeError, KeyError, IndexError, TypeError):
+        return None
 
 
 def create_gauge_chart(value1, title1, value2, title2):

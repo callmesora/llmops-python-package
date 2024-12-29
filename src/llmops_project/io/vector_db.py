@@ -11,7 +11,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from langchain_qdrant import QdrantVectorStore
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
 

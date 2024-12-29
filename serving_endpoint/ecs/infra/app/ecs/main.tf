@@ -66,7 +66,7 @@ resource "aws_lb_listener_rule" "this" {
   }
 }
 
-# IAM 
+# IAM
 data "aws_iam_policy_document" "ecs_assume_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -104,7 +104,7 @@ resource "aws_iam_role_policy_attachment" "ecs_execution_role_policy_attach" {
   policy_arn = aws_iam_policy.ecs_execution_policy.arn
 }
 
-# ECS 
+# ECS
 resource "aws_cloudwatch_log_group" "ecs" {
   name = "/aws/ecs/${var.app_name}/cluster"
 }
@@ -140,7 +140,7 @@ resource "aws_ecs_task_definition" "api" {
   ])
 }
 
-# Cluster 
+# Cluster
 resource "aws_ecs_cluster" "this" {
   name = "${var.app_name}-cluster"
   setting {

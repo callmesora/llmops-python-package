@@ -1,6 +1,6 @@
 job:
   KIND: FeatureEngineeringJob
-  embedding_model: "amazon.titan-embed-text-v1" 
-  vector_store_path: "http://localhost:6333" 
+  embedding_model: "amazon.titan-embed-text-v1"
+  vector_store_path: "http://localhost:6333"
   document_path: "/data/documents/"
   collection_name: "hr-documents"

@@ -61,7 +61,3 @@ To run the Docker image, use the following command:
 ```sh
 docker run --env-file .env -p 8000:8000 litserve-model:latest
 ```
-
-
-
-

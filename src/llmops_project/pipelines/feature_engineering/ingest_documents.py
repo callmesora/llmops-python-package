@@ -5,6 +5,7 @@ from pathlib import Path
 
 import dotenv
 from langchain_aws import BedrockEmbeddings
+
 from llmops_project.io import services
 from llmops_project.io.vector_db import QdrantVectorDB
 from llmops_project.pipelines import base

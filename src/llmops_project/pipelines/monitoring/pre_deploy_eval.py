@@ -3,8 +3,9 @@ from pathlib import Path
 
 import mlflow
 import pandas as pd
-from llmops_project.pipelines import base
 from mlflow import MlflowClient
+
+from llmops_project.pipelines import base
 
 
 class EvaluateModelJob(base.Job):  # type: ignore[misc]
