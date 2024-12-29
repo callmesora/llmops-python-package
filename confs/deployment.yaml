@@ -5,7 +5,7 @@ job:
   registry_model_name: "rag-chatbot-with-guardrails"
   llm_confs: "/confs/rag_chain_config.yaml"
   llm_model_code_path: "/src/llmops_project/models/chatbot_with_guardrails.py"
-  vector_store_path: "https://34beb054-2278-47fe-9731-cd7ed574320f.eu-west-2-0.aws.cloud.qdrant.io:6333" #"http://localhost:6333"
+  vector_store_path: "http://localhost:6333" 
   qa_dataset_path: "/data/datasets/rag_dataset.csv"
   alias: "champion"
 
