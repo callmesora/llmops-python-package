@@ -9,18 +9,18 @@ from invoke.tasks import task
 
 
 @task
-def poetry(ctx: Context) -> None:
-    """Install poetry packages."""
-    ctx.run("poetry install")
+def uv(ctx: Context) -> None:
+    """Install uv packages."""
+    ctx.run("uv sync --group commits")
 
 
 @task
 def pre_commit(ctx: Context) -> None:
     """Install pre-commit hooks on git."""
-    ctx.run("poetry run pre-commit install --hook-type pre-push")
-    ctx.run("poetry run pre-commit install --hook-type commit-msg")
+    ctx.run("uv run pre-commit install --hook-type pre-push")
+    ctx.run("uv run pre-commit install --hook-type commit-msg")
 
 
-@task(pre=[poetry, pre_commit], default=True)
+@task(pre=[uv, pre_commit], default=True)
 def all(_: Context) -> None:
     """Run all install tasks."""

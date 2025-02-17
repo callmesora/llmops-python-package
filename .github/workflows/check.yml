@@ -12,10 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: poetry install --with checks
-      - run: poetry run invoke checks.format
-      - run: poetry run invoke checks.code
-      - run: poetry run invoke checks.type
-      - run: poetry run invoke checks.security
+      - run: uv sync --group checks
+      - run: uv run invoke checks.format
+      - run: uv run invoke checks.code
+      - run: uv run invoke checks.type
+      - run: uv run invoke checks.security
       # TODO: Add tests once figuring out how to mock mlflow and qdrant
-      

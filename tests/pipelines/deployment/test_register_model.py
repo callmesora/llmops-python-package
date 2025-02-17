@@ -1,4 +1,5 @@
 import pytest
+
 from llmops_project.pipelines.deployment.register_model import LogAndRegisterModelJob
 
 # %% IMPORTS

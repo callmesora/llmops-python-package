@@ -5,4 +5,3 @@ job:
 
   trace_experiment_name: "rag_chatbot_experiment"
   monitoring_experiment_name: "monitoring"
-

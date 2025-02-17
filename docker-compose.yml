@@ -8,7 +8,7 @@ services:
     environment:
       - MLFLOW_HOST=0.0.0.0
     command: mlflow server
-  
+
   qdrant:
       image: qdrant/qdrant:latest
       restart: always
@@ -29,4 +29,4 @@ services:
 configs:
   qdrant_config:
     content: |
-      log_level: INFO      
+      log_level: INFO
